@@ -27,4 +27,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         tvName = (TextView) findViewById(R.id.id_home_tv_folder_name);
         gvContent = (GridView) findViewById(R.id.id_home_gv_gallery);
     }
+
+    private void initData(){
+
+    }
+
+    private void initEvent(){
+
+    }
 }
