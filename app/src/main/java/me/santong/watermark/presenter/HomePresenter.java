@@ -51,11 +51,6 @@ public class HomePresenter implements HomeContract.UserListener {
     }
 
     @Override
-    public void loadPhotosByFolder(int pos) {
-
-    }
-
-    @Override
     public void setUpGalleryData(int pos) {
         if (null == folderBeanList || folderBeanList.size() < pos)
             return;
@@ -65,9 +60,8 @@ public class HomePresenter implements HomeContract.UserListener {
         mPathList.addAll(folderBean.getPathList());
         GalleryAdapter adapter = new GalleryAdapter(mContext, mPathList);
         mView.setGalleryAdapter(adapter);
-        Log.e("===1", folderBean.getName());
 
-        String folderDetail = folderBean.getName() + "(" + folderBean.getSize() + ")";
+        String folderDetail = folderBean.getName() + "(共" + folderBean.getSize() + "张照片)";
         mView.setCurrentFolder(folderDetail);
     }
 

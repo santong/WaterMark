@@ -39,8 +39,6 @@ public interface HomeContract {
     }
 
     interface UserListener extends BaseUserListener {
-        void loadPhotosByFolder(int pos);
-
         void setUpGalleryData(int pos);
     }
 }
