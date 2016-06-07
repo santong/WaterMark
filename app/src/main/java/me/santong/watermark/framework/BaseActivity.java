@@ -28,24 +28,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         mContext = BaseActivity.this;
 
         setContentView(getLayoutID());
+
+        initActivity();
     }
 
     abstract protected int getLayoutID();
 
+    abstract protected void initActivity();
+
     public void logi(String msg) {
-        Log.i("JinXiang_" + ((Object) this).getClass().getSimpleName(), msg);
+        Log.i("WM" + ((Object) this).getClass().getSimpleName(), msg);
     }
 
     public void logd(String msg) {
-        Log.d("JinXiang_" + ((Object) this).getClass().getSimpleName(), msg);
+        Log.d("WM" + ((Object) this).getClass().getSimpleName(), msg);
     }
 
     public void loge(String msg) {
-        Log.e("JinXiang_" + ((Object) this).getClass().getSimpleName(), msg);
+        Log.e("WM" + ((Object) this).getClass().getSimpleName(), msg);
     }
 
     public void logw(String msg) {
-        Log.w("JinXiang_" + ((Object) this).getClass().getSimpleName(), msg);
+        Log.w("WM" + ((Object) this).getClass().getSimpleName(), msg);
     }
 
     public void pushActivity(Class<? extends BaseActivity> activityClass) {
