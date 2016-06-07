@@ -1,5 +1,7 @@
 package me.santong.watermark.contract;
 
+import android.widget.BaseAdapter;
+
 import java.util.List;
 
 import me.santong.watermark.framework.BaseUserListener;
@@ -32,11 +34,13 @@ public interface HomeContract {
 
         void lightOff();
 
+        void setGalleryAdapter(BaseAdapter adapter);
+
     }
 
     interface UserListener extends BaseUserListener {
         void loadPhotosByFolder(int pos);
 
-        void setUpAdapter();
+        void setUpGalleryData(int pos);
     }
 }

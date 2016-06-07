@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import me.santong.watermark.adapters.GalleryAdapter;
 import me.santong.watermark.contract.HomeContract;
 import me.santong.watermark.model.FolderBean;
 import rx.Observable;
@@ -36,6 +37,8 @@ public class HomePresenter implements HomeContract.UserListener {
 
     private List<FolderBean> folderBeanList;
 
+    private List<String> mPathList;
+
     public HomePresenter(Context context, HomeContract.View view) {
         mContext = context;
         mView = view;
@@ -43,6 +46,7 @@ public class HomePresenter implements HomeContract.UserListener {
 
     @Override
     public void start() {
+        mPathList = new LinkedList<>();
         findFoldersAndPhotos();
     }
 
@@ -52,8 +56,19 @@ public class HomePresenter implements HomeContract.UserListener {
     }
 
     @Override
-    public void setUpAdapter() {
+    public void setUpGalleryData(int pos) {
+        if (null == folderBeanList || folderBeanList.size() < pos)
+            return;
+        FolderBean folderBean = folderBeanList.get(pos);
 
+        mPathList.clear();
+        mPathList.addAll(folderBean.getPathList());
+        GalleryAdapter adapter = new GalleryAdapter(mContext, mPathList);
+        mView.setGalleryAdapter(adapter);
+        Log.e("===1", folderBean.getName());
+
+        String folderDetail = folderBean.getName() + "(" + folderBean.getSize() + ")";
+        mView.setCurrentFolder(folderDetail);
     }
 
     private void findFoldersAndPhotos() {

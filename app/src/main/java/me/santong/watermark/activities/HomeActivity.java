@@ -1,7 +1,9 @@
 package me.santong.watermark.activities;
 
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -9,13 +11,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.santong.watermark.R;
+import me.santong.watermark.adapters.GalleryAdapter;
 import me.santong.watermark.contract.HomeContract;
 import me.santong.watermark.framework.BaseActivity;
 import me.santong.watermark.model.FolderBean;
 import me.santong.watermark.presenter.HomePresenter;
 import me.santong.watermark.widget.FoldersPopupWindow;
+import me.santong.watermark.widget.FoldersPopupWindow.OnFolderItemClick;
 
-public class HomeActivity extends BaseActivity implements HomeContract.View, View.OnClickListener {
+public class HomeActivity extends BaseActivity implements HomeContract.View, View.OnClickListener
+        , OnFolderItemClick {
 
     private TextView tvName;
     private GridView gvContent;
@@ -81,7 +86,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Vie
 
     @Override
     public void setCurrentFolder(String folderName) {
-
+        tvName.setText(folderName);
     }
 
     @Override
@@ -103,6 +108,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Vie
                 lightOn();
             }
         });
+
+        mPresenter.setUpGalleryData(0);
+//        GalleryAdapter adapter = new GalleryAdapter(mContext, folderBeanList.get(0).getPathList());
+//        gvContent.setAdapter(adapter);
     }
 
     @Override
@@ -117,6 +126,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Vie
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 0.3f;
         getWindow().setAttributes(lp);
+    }
+
+    @Override
+    public void setGalleryAdapter(BaseAdapter adapter) {
+        gvContent.setAdapter(adapter);
     }
 
     @Override
@@ -144,5 +158,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Vie
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onClick(int position, View view) {
+        mPresenter.setUpGalleryData(position);
+        popupWindow.dismiss();
     }
 }
